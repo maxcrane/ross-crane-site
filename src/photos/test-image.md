@@ -1,4 +1,5 @@
 ---
+templateKey: photo
 title: Test Image
 image: /img/cat.png
 tags:

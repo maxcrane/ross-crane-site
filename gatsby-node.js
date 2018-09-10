@@ -68,6 +68,12 @@ exports.createPages = ({ actions, graphql }) => {
         },
       })
     })
+
+    //photos page
+    createPage({
+        path: "photos",
+        component: path.resolve(`src/pages/photos/index.js`)
+    })
   })
 }
 

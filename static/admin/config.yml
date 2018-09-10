@@ -6,6 +6,16 @@ media_folder: static/img
 public_folder: /img
 
 collections:
+  - name: "photo"
+    label: "Photo"
+    folder: "src/photos"
+    create: true
+    fields:
+    - {label: "Template Key", name: "templateKey", widget: "hidden", default: "photo"}
+    - {label: "Title", name: "title", widget: "string"}
+    - {label: "Image", name: "image", widget: "image"}
+    - {label: "Tags", name: "tags", widget: "list"}
+
   - name: "blog"
     label: "Blog"
     folder: "src/pages/blog"
