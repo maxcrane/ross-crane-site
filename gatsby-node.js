@@ -7,7 +7,7 @@ exports.createPages = ({ actions, graphql }) => {
 
   return graphql(`
     {
-      allMarkdownRemark(limit: 1000) {
+      allMarkdownRemark(limit: 1000, filter: { fileAbsolutePath: {regex : "\\/blog/"} }) {
         edges {
           node {
             id
@@ -31,6 +31,7 @@ exports.createPages = ({ actions, graphql }) => {
     const posts = result.data.allMarkdownRemark.edges
 
     posts.forEach(edge => {
+
       const id = edge.node.id
       createPage({
         path: edge.node.fields.slug,
@@ -73,6 +74,19 @@ exports.createPages = ({ actions, graphql }) => {
     createPage({
         path: "photos",
         component: path.resolve(`src/pages/photos/index.js`)
+    })
+
+    //about page
+    createPage({
+        path: "about",
+        //tags: edge.node.frontmatter.tags,
+        component: path.resolve(
+            `src/templates/about-page.js`
+        ),
+        // additional data can be passed via context
+        context: {
+            id: "2f19cf88-cb40-5d1d-a2cd-db255d37b88a",
+        },
     })
   })
 }
