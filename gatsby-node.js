@@ -75,19 +75,7 @@ exports.createPages = ({ actions, graphql }) => {
         path: "photos",
         component: path.resolve(`src/pages/photos/index.js`)
     })
-
-    //about page
-    createPage({
-        path: "about",
-        //tags: edge.node.frontmatter.tags,
-        component: path.resolve(
-            `src/templates/about-page.js`
-        ),
-        // additional data can be passed via context
-        context: {
-            id: "2f19cf88-cb40-5d1d-a2cd-db255d37b88a",
-        },
-    })
+      
   })
 }
 
