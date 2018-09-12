@@ -1,27 +1,52 @@
 import React from 'react'
 import {kebabCase} from 'lodash'
-import Helmet from 'react-helmet'
-import {Link, graphql} from 'gatsby'
+import {graphql} from 'gatsby'
 import Layout from '../../components/Layout'
 
-const PhotosPage = ({data}) => {
-    const { edges: images } = data.allMarkdownRemark
+import Grid from '@material-ui/core/Grid'
+import Card from '@material-ui/core/Card'
+import CardMedia from '@material-ui/core/CardMedia'
 
-    console.log(images);
+const styles = {
+    card: {
+        maxWidth: 300,
+    },
+    media: {
+        height: 300,
+    },
+};
+
+const PhotosPage = ({data}) => {
+    const {edges: images} = data.allMarkdownRemark
+
+    console.log(data);
 
     return (
         <Layout>
             <section className="section">
                 <div className="container">
                     <div className="content">
-                        <h1 className="has-text-weight-bold is-size-2">These be the photos</h1>
+                        <Grid container justify="center" spacing={40}>
+                            {
+                                images.map(imageNode => {
+                                    const path = imageNode.node.frontmatter.image;
+                                    return (
+                                        <Grid item key={`grid-item-${path}`} style={{width: "340px"}}>
+                                            <Card style={styles.card} key={path}>
+                                                <CardMedia
+                                                    onClick={() => console.log(path)}
+                                                    style={styles.media}
+                                                    image={path}
+                                                    title="Image title"/>
+                                            </Card>
+                                        </Grid>
 
-                        {
-                            images.map(imageNode => {
-                                const path = imageNode.node.frontmatter.image;
-                                return <img key={path} src={path} alt="whoops"/>;
-                            })
-                        }
+                                    );
+                                })
+                            }
+                        </Grid>
+
+
                     </div>
                 </div>
             </section>
@@ -29,7 +54,7 @@ const PhotosPage = ({data}) => {
     )
 }
 
-export default PhotosPage
+export default PhotosPage;
 
 
 export const photosPageQuery = graphql`
