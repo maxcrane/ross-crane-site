@@ -5,10 +5,10 @@ import Navbar from '../components/Navbar'
 import './all.sass'
 
 const TemplateWrapper = ({ children }) => (
-  <div>
-    <Helmet title="Ross Crane" />
+  <div style={{height: '100%'}}>
+    <Helmet  title="Ross Crane" />
     <Navbar />
-    <div>{children}</div>
+    <div style={{height: '100%'}}>{children}</div>
   </div>
 )
 
