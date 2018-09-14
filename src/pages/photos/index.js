@@ -24,7 +24,7 @@ class PhotosPage extends Component {
     constructor(props) {
         super(props);
         const {edges: images} = this.props.data.allMarkdownRemark
-        const allImageFrontmatters = images.map((imageNode) => _.get(imageNode, ['node', 'frontmatter']))
+        this.allImageFrontmatters = images.map((imageNode) => _.get(imageNode, ['node', 'frontmatter']))
 
         this.tagToPhotos = images.reduce((acc, curr) => {
             curr.node.frontmatter.tags.forEach((tag) => {
@@ -39,23 +39,21 @@ class PhotosPage extends Component {
         const allTag = 'all';
         const tags = _.keys(this.tagToPhotos);
         tags.unshift(allTag);
+        this.tagToPhotos[allTag] = this.allImageFrontmatters;
 
         this.state = {
             currentTag: allTag,
             allTag: allTag,
             tags,
-            allImageFrontmatters,
-            filteredImageFrontmatters: allImageFrontmatters
+            filteredImageFrontmatters: this.allImageFrontmatters
         };
     }
 
     tagClicked(tag) {
         this.setState({
-            currentTag: tag, filteredImageFrontmatters: _.get(this.tagToPhotos,
-                [tag], this.state.allImageFrontmatters)
+            currentTag: tag, filteredImageFrontmatters: _.get(this.tagToPhotos, [tag])
         });
     }
-
 
     render() {
         return (
