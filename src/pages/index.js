@@ -39,7 +39,7 @@ export const query = graphql`
       childImageSharp {
         sizes(maxWidth: 5000) {
          # Choose either the fragment including a small base64ed image, a traced placeholder SVG, or one without.
-            ...GatsbyImageSharpSizes_noBase64
+            ...GatsbyImageSharpSizes
          }
       }
     }
