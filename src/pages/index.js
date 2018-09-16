@@ -1,15 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Layout from '../components/Layout'
-import background from '../../static/img/website-background.jpg';
+import Img from "gatsby-image"
+import {graphql} from "gatsby"
 
 export default class IndexPage extends React.Component {
+   constructor(props) {
+      super(props);
 
+      console.log(props.data.backgroundImage);
+   }
 
    render() {
       return (
          <Layout style={{height: '100%'}}>
-            <div className={'background'} style={{backgroundImage: `url(${background})`}}/>
+            <Img
+               className={"full-height"}
+               outerWrapperClassName={"full-height"}
+               title={`ross crane background image`}
+               sizes={this.props.data.backgroundImage.childImageSharp.sizes}
+            />
          </Layout>
       )
    }
@@ -23,5 +33,17 @@ IndexPage.propTypes = {
    }),
 }
 
+export const query = graphql`
+  query {
+    backgroundImage: file(relativePath: { regex: "/website-background.jpg/" }) {
+      childImageSharp {
+        sizes(maxWidth: 5000) {
+         # Choose either the fragment including a small base64ed image, a traced placeholder SVG, or one without.
+            ...GatsbyImageSharpSizes_noBase64
+         }
+      }
+    }
+  }
+`
 
 
