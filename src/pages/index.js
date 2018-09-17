@@ -17,7 +17,7 @@ export default class IndexPage extends React.Component {
             <Img
                className={"full-height"}
                outerWrapperClassName={"full-height"}
-               title={`ross crane background image`}
+               alt={`cityscape`}
                sizes={this.props.data.backgroundImage.childImageSharp.sizes}
             />
          </Layout>
@@ -37,7 +37,7 @@ export const query = graphql`
   query {
     backgroundImage: file(relativePath: { regex: "/website-background.jpg/" }) {
       childImageSharp {
-        sizes(maxWidth: 5000) {
+        sizes(maxWidth: 6000) {
          # Choose either the fragment including a small base64ed image, a traced placeholder SVG, or one without.
             ...GatsbyImageSharpSizes
          }
