@@ -1,15 +1,17 @@
 import React from 'react'
 import Helmet from 'react-helmet'
-
 import Navbar from '../components/Navbar'
 import './all.sass'
 
-const TemplateWrapper = ({ children }) => (
-  <div style={{height: '100%', overflow: 'hidden'}}>
-    <Helmet  title="Ross Crane" />
-    <Navbar />
-    <div style={{height: '100%'}}>{children}</div>
-  </div>
-)
+export default ({children, pathname}) => {
+   const overflow = pathname === '/' ? 'hidden' : 'scroll';
 
-export default TemplateWrapper
+   return (
+      <div style={{height: '100%', overflow}}>
+         <Helmet title="Ross Crane"/>
+         <Navbar/>
+         <div style={{height: '100%'}}>{children}</div>
+      </div>
+   )
+}
+

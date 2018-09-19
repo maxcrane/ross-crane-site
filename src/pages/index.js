@@ -5,15 +5,11 @@ import Img from "gatsby-image"
 import {graphql} from "gatsby"
 
 export default class IndexPage extends React.Component {
-   constructor(props) {
-      super(props);
-
-      console.log(props.data.backgroundImage);
-   }
-
+   
    render() {
       return (
-         <Layout style={{height: '100%'}}>
+         <Layout style={{height: '100%'}}
+                 pathname={this.props.location.pathname}>
             <Img
                className={"full-height"}
                outerWrapperClassName={"full-height"}
