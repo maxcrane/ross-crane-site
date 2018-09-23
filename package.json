@@ -7,7 +7,7 @@
     "@material-ui/core": "^3.0.3",
     "bulma": "^0.7.0",
     "gatsby": "next",
-    "gatsby-image": "^1.0.55",
+    "gatsby-image": "^2.0.8",
     "gatsby-plugin-netlify": "next",
     "gatsby-plugin-netlify-cms": "next",
     "gatsby-plugin-react-helmet": "next",

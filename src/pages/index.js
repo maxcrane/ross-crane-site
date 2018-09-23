@@ -5,8 +5,10 @@ import Img from "gatsby-image"
 import {graphql} from "gatsby"
 
 export default class IndexPage extends React.Component {
-   
+
    render() {
+      console.log(this.props.data.backgroundImage.childImageSharp);
+
       return (
          <Layout style={{height: '100%'}}
                  pathname={this.props.location.pathname}>
@@ -14,7 +16,7 @@ export default class IndexPage extends React.Component {
                className={"full-height"}
                outerWrapperClassName={"full-height"}
                alt={`cityscape`}
-               sizes={this.props.data.backgroundImage.childImageSharp.sizes}
+               fluid={this.props.data.backgroundImage.childImageSharp.fluid}
             />
          </Layout>
       )
@@ -33,9 +35,9 @@ export const query = graphql`
   query {
     backgroundImage: file(relativePath: { regex: "/website-background.jpg/" }) {
       childImageSharp {
-        sizes(maxWidth: 6000) {
+        fluid(maxWidth: 6000) {
          # Choose either the fragment including a small base64ed image, a traced placeholder SVG, or one without.
-            ...GatsbyImageSharpSizes
+            ...GatsbyImageSharpFluid
          }
       }
     }
