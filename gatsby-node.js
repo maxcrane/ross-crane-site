@@ -59,6 +59,17 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
 
   if (node.internal.type === `MarkdownRemark`) {
+
+    if (node.frontmatter.image) {
+      const path = `../../static${node.frontmatter.image}`;
+
+       createNodeField({
+          node,
+          name: 'image',
+          value: path
+       });
+    }
+
     const value = createFilePath({ node, getNode })
     createNodeField({
       name: `slug`,

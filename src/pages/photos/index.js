@@ -6,6 +6,7 @@ import Card from '@material-ui/core/Card'
 import CardMedia from '@material-ui/core/CardMedia'
 import _ from "lodash";
 import Button from "@material-ui/core/Button/Button"
+import Img from "gatsby-image";
 
 const styles = {
     card: {
@@ -24,12 +25,13 @@ class PhotosPage extends Component {
     constructor(props) {
         super(props);
         const {edges: images} = this.props.data.allMarkdownRemark
+
         this.allImageFrontmatters = images.map((imageNode) => _.get(imageNode, ['node', 'frontmatter']))
 
         this.tagToPhotos = images.reduce((acc, curr) => {
             curr.node.frontmatter.tags.forEach((tag) => {
                 let photos = _.get(curr, tag, []);
-                photos.push(curr.node.frontmatter);
+                photos.push(curr);
                 acc[tag] = photos;
             });
 
@@ -45,13 +47,14 @@ class PhotosPage extends Component {
             currentTag: allTag,
             allTag: allTag,
             tags,
-            filteredImageFrontmatters: this.allImageFrontmatters
+            filteredImages: images,
+           images
         };
     }
 
     tagClicked(tag) {
         this.setState({
-            currentTag: tag, filteredImageFrontmatters: _.get(this.tagToPhotos, [tag])
+            currentTag: tag, filteredImages: _.get(this.tagToPhotos, [tag])
         });
     }
 
@@ -80,16 +83,15 @@ class PhotosPage extends Component {
                         <div className="content">
                             <Grid container justify="center" spacing={24}>
                                 {
-                                    this.state.filteredImageFrontmatters.map(imageFrontmatter => {
-                                        const path = imageFrontmatter.image;
+                                    this.state.filteredImages.map(imageNode => {
+                                        const path = imageNode.node.frontmatter.image;
                                         return (
                                             <Grid item key={`grid-item-${path}`} style={{width: "340px"}}>
                                                 <Card style={styles.card} key={path}>
-                                                    <CardMedia
-                                                        onClick={() => console.log(path)}
-                                                        style={styles.media}
-                                                        image={path}
-                                                        title="Image title"/>
+                                                   <Img
+                                                      alt={`path`}
+                                                      fluid={imageNode.node.fields.image.childImageSharp.fluid}
+                                                   />
                                                 </Card>
                                             </Grid>
 
@@ -110,14 +112,24 @@ export default PhotosPage;
 export const photosPageQuery = graphql`
     query PhotosPage {
         allMarkdownRemark(limit: 1000, filter: { fileAbsolutePath: {regex : "\\/photos/"} }) {
-          edges {
+           edges {
               node {
-                frontmatter {
-                  tags
-                  image
-                }
+                 frontmatter {
+                     tags
+                     image
+                   }
+                   fields {
+                        image {
+                         childImageSharp {
+                           fluid(maxWidth: 2000, quality: 100) {
+                              ...GatsbyImageSharpFluid
+                           }
+                         }
+                       }
+                   }
+                
               }
-            }
+           }
         }
       }
 `
