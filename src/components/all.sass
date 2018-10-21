@@ -41,7 +41,6 @@ $primary-invert: $kaldi-red-invert
 
 @import "~bulma"
 
-
 .background
   /* The image used */
 
@@ -52,7 +51,6 @@ $primary-invert: $kaldi-red-invert
   background: no-repeat center
   background-size: cover
 
-
 .full-height
   height: 100%
 
@@ -62,20 +60,47 @@ body, html
 #___gatsby, #___gatsby > div
   height: 100%
 
-
 .zoom-in
   cursor: zoom-in
 
 .photo-modal
+  background: black
   display: flex
   align-items: center
   justify-content: center
+  flex-direction: column
+
+.photo-modal-photo-container
+  display: flex
+  align-items: center
+  justify-content: center
+  height: 100%
+  width: 100%
+
+//TODO: fix
+.photo-modal-photo
+  position: absolute
+  left: 0
+  top: 0
+  width: 100%
+  height: auto
+  max-height: 100%
+
+
+.photo-modal-controls
+  height: 30px
+  width: 100%
+  background-color: grey
+  display: flex
+  flex-direction: row-reverse
+  align-items: center
+
+.photo-modal-control-button
+  padding-right: 10px
 
 .photo-modal-content
-  width: 800px
-  max-width: 80%
-  height: auto
-  outline: none
-
-
+  width: 100%
+  height: 100%
+  display: flex
+  flex-direction: column
 

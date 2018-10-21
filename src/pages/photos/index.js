@@ -39,6 +39,29 @@ class PhotosPage extends Component {
       };
    }
 
+   componentDidMount() {
+      document.addEventListener("keydown", this.handleKeyPress.bind(this));
+   }
+
+   componentWillUnmount() {
+      document.removeEventListener("keydown", this.handleKeyPress.bind(this));
+   }
+
+   handleKeyPress(event) {
+      //left key
+      if (event.keyCode === 37) {
+         this.setState({photoModalIndex: this.state.photoModalIndex === 0
+            ? this.state.filteredImages.length - 1
+            : this.state.photoModalIndex - 1});
+      }
+      //right key
+      else if (event.keyCode === 39) {
+         this.setState({photoModalIndex: this.state.photoModalIndex === this.state.filteredImages.length - 1
+               ? 0
+               : this.state.photoModalIndex + 1});
+      }
+   }
+
    tagClicked(tag) {
       this.setState({
          currentTag: tag, filteredImages: _.get(this.tagToPhotos, [tag])
@@ -56,8 +79,8 @@ class PhotosPage extends Component {
    render() {
       const modalImageNode = this.state.filteredImages[this.state.photoModalIndex];
       const fluidImage = modalImageNode
-            ? modalImageNode.node.fields.image.childImageSharp.fluid
-            : undefined;
+         ? modalImageNode.node.fields.image.childImageSharp.fluid
+         : undefined;
 
       return (
          <Layout>
@@ -109,10 +132,19 @@ class PhotosPage extends Component {
                      className={"photo-modal"}
                   >
                      <div className={"photo-modal-content"}>
-                        <Img
-                           alt={`path`}
-                           fluid={fluidImage}
-                        />
+                        <div className={'photo-modal-controls'}>
+                           <h1
+                              className={'photo-modal-control-button'}
+                              onClick={this.handleClose.bind(this)}>X</h1>
+                        </div>
+
+                        <div className={'photo-modal-photo-container'}>
+                           <Img
+                              className={'photo-modal-photo'}
+                              alt={`path`}
+                              fluid={fluidImage}
+                           />
+                        </div>
                      </div>
                   </Modal>
 
