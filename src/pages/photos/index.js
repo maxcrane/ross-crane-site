@@ -7,7 +7,6 @@ import Button from "@material-ui/core/Button/Button"
 import Img from "gatsby-image";
 import Modal from '@material-ui/core/Modal';
 
-
 class PhotosPage extends Component {
    constructor(props) {
       super(props);
@@ -140,6 +139,18 @@ class PhotosPage extends Component {
 
                         <div className={'photo-modal-photo-container'}>
                            <Img
+                              imgStyle={{
+                                 width: 'unset',
+                                 height: 'unset',
+                                 maxWidth: '100%',
+                                 maxHeight: '100%',
+                                 justifySelf: 'center',
+                                 top: '0',
+                                 bottom: '0',
+                                 right: '0',
+                                 left: '0',
+                                 margin: 'auto'
+                              }}
                               className={'photo-modal-photo'}
                               alt={`path`}
                               fluid={fluidImage}
