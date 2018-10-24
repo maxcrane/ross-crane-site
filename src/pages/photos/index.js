@@ -108,6 +108,9 @@ class PhotosPage extends Component {
                            <div key={`${tag}-container`}
                                 style={this.state.currentTag === tag ? {textDecoration: "underline"} : {}}>
                               <Button key={tag}
+                                      style={{
+                                         textTransform: 'capitalize'
+                                      }}
                                       onClick={this.tagClicked.bind(this, tag)}>
                                  {tag}
                               </Button>
@@ -180,6 +183,7 @@ class PhotosPage extends Component {
                                  left: '0',
                                  margin: 'auto'
                               }}
+                              fadeIn="true"
                               className={'photo-modal-photo'}
                               alt={`path`}
                               fluid={fluidImage}
