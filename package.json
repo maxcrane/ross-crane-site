@@ -5,6 +5,7 @@
   "author": "Austin Green",
   "dependencies": {
     "@material-ui/core": "^3.0.3",
+    "@material-ui/icons": "^3.0.1",
     "bulma": "^0.7.0",
     "gatsby": "next",
     "gatsby-image": "^2.0.8",

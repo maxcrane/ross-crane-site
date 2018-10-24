@@ -6,6 +6,9 @@ import _ from "lodash";
 import Button from "@material-ui/core/Button/Button"
 import Img from "gatsby-image";
 import Modal from '@material-ui/core/Modal';
+import CloseIcon from '@material-ui/icons/Close';
+import NavigateBefore from '@material-ui/icons/NavigateBefore';
+import NavigateNext from '@material-ui/icons/NavigateNext';
 
 class PhotosPage extends Component {
    constructor(props) {
@@ -49,16 +52,30 @@ class PhotosPage extends Component {
    handleKeyPress(event) {
       //left key
       if (event.keyCode === 37) {
-         this.setState({photoModalIndex: this.state.photoModalIndex === 0
-            ? this.state.filteredImages.length - 1
-            : this.state.photoModalIndex - 1});
+         this.handleGoToPreviousPic();
       }
       //right key
       else if (event.keyCode === 39) {
-         this.setState({photoModalIndex: this.state.photoModalIndex === this.state.filteredImages.length - 1
-               ? 0
-               : this.state.photoModalIndex + 1});
+         this.handleGoToNextPic();
       }
+
+   }
+
+   handleGoToNextPic() {
+      this.setState({
+         photoModalIndex: this.state.photoModalIndex === this.state.filteredImages.length - 1
+            ? 0
+            : this.state.photoModalIndex + 1
+      });
+
+   }
+
+   handleGoToPreviousPic() {
+      this.setState({
+         photoModalIndex: this.state.photoModalIndex === 0
+            ? this.state.filteredImages.length - 1
+            : this.state.photoModalIndex - 1
+      });
    }
 
    tagClicked(tag) {
@@ -132,9 +149,21 @@ class PhotosPage extends Component {
                   >
                      <div className={"photo-modal-content"}>
                         <div className={'photo-modal-controls'}>
-                           <h1
-                              className={'photo-modal-control-button'}
-                              onClick={this.handleClose.bind(this)}>X</h1>
+                           <Button variant="fab" mini color="secondary" aria-label="Close">
+                              <CloseIcon
+                                 style={{color: 'white'}}
+                                 onClick={this.handleClose.bind(this)}/>
+                           </Button>
+                           <Button variant="fab" mini color="primary" aria-label="Close">
+                              <NavigateNext
+                                 style={{color: 'white'}}
+                                 onClick={this.handleGoToNextPic.bind(this)}/>
+                           </Button>
+                           <Button variant="fab" mini color="primary" aria-label="Close">
+                              <NavigateBefore
+                                 style={{color: 'white'}}
+                                 onClick={this.handleGoToPreviousPic.bind(this)}/>
+                           </Button>
                         </div>
 
                         <div className={'photo-modal-photo-container'}>
@@ -168,7 +197,8 @@ class PhotosPage extends Component {
 
 export default PhotosPage;
 
-export const photosPageQuery = graphql`
+export const
+   photosPageQuery = graphql`
     query PhotosPage {
         allMarkdownRemark(limit: 1000, filter: { fileAbsolutePath: {regex : "\\/photos/"} }) {
            edges {
